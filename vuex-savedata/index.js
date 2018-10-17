@@ -1,4 +1,8 @@
-/**
+/*
+ * @Author:banlangen 
+ * @Date: 2018-08-12 01:05:13 
+ * @Last Modified by: xiaoliu
+ * @Last Modified time: 2018-10-18 00:35:42
  * 
  * @param {Object}
  * SS {storePath: xx, module: xx }
@@ -25,6 +29,7 @@ export default function createPersiste ({
     getState = (path, Sg) => {
         const data = window[Sg].getItem(saveName) // 如果 没有key 会返回 null
         if (!data) return null
+        console.log(window[Sg])
         return path ? {[path]: JSON.parse(data)} : JSON.parse(data)
         // return storePath ? {[storePath]: JSON.parse(data)} : JSON.parse(data)
     }
@@ -32,10 +37,12 @@ export default function createPersiste ({
     return store => {
         let data = ''
         if (LS) {
+            checkoutParams(LS)
             const localData = getState(LS.storePath, 'localStorage')
             data = localData
         }
         if (SS) {
+            checkoutParams(SS)
             const sessionData = getState(SS.storePath, 'sessionStorage')
             if (data) {
                 data = {...sessionData, ...data}
@@ -63,5 +70,9 @@ export default function createPersiste ({
         // mutation 的格式为 { type, payload }
         })
     }
+}
+
+function checkoutParams(params){
+    if(!(params.storePath && params.module)) throw new Error(`SS,LS的key必须包含storePath,module`); 
 }
 
