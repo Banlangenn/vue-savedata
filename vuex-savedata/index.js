@@ -1,9 +1,8 @@
 /*
- * @Author:banlangen 
- * @Date: 2018-08-12 01:05:13 
+ * @Author:banlangen
+ * @Date: 2018-08-12 01:05:13
  * @Last Modified by: xiaoliu
  * @Last Modified time: 2018-10-18 00:35:42
- * 
  * @param {Object}
  * SS {storePath: xx, module: xx }
  * LS {storePath: xx, module: xx }
@@ -36,20 +35,18 @@ export default function createPersiste ({
 } = {}) {
     return store => {
         let data = ''
-        if (LS) {
-            checkoutParams(LS)
+        if (LS && checkoutParams(LS)) {
             const localData = getState(LS.storePath, 'localStorage')
             data = localData
-        }
-        if (SS) {
-            checkoutParams(SS)
+        } else { LS = null }
+        if (SS && checkoutParams(SS)) {
             const sessionData = getState(SS.storePath, 'sessionStorage')
             if (data) {
                 data = {...sessionData, ...data}
             } else {
                 data = sessionData
             }
-        }
+        } else { SS = null }
         if (!LS && !SS) {
             data = getState(null, 'localStorage')
         }
@@ -57,12 +54,12 @@ export default function createPersiste ({
         // 当 store 初始化后调用
         store.subscribe((mutation, state) => {
         // 每次 mutation 之后调用
-        if (LS && LS.module && LS.module['mutations'] && LS.module['mutations'][mutation.type]) {
+        if (LS && LS.module['mutations'][mutation.type]) {
             console.log(LS)
             setState(state[LS.storePath], 'localStorage')
             return
         }
-        if (SS && SS.module && SS.module['mutations'] && SS.module['mutations'][mutation.type]) {
+        if (SS && SS.module['mutations'][mutation.type]) {
             setState(state[SS.storePath], 'sessionStorage')
             return
         }
@@ -72,7 +69,13 @@ export default function createPersiste ({
     }
 }
 
-function checkoutParams(params){
-    if(!(params.storePath && params.module)) throw new Error(`SS,LS的key必须包含storePath,module`); 
+function checkoutParams(params) {
+    if (!(params.storePath && params.module)) {
+        console.warn(`SS,LS的key约定必须包含storePath、module`)
+        return false
+    }
+    if (!(params.module['state'] && params.module['mutations'])) {
+        console.warn(`module约定必须要有mutations、state`)
+        return false
+    }
 }
-
