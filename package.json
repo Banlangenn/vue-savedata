@@ -1,7 +1,7 @@
 {
   "name": "vue-savedata",
   "version": "1.0.1",
-  "description": "vuex插件  自动保存vuex数据到浏览器本地",
+  "description": "vuex插件  保存数据到浏览器",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,7 +12,9 @@
   },
   "keywords": [
     "vuex",
-    "persits"
+    "persitste",
+    "vue",
+    "savedata"
   ],
   "author": "balangen",
   "license": "ISC"
