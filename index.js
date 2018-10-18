@@ -29,7 +29,6 @@ export default function createPersiste ({
         const data = window[Sg].getItem(saveName) // 如果 没有key 会返回 null
         if (!data) return null
         return path ? {[path]: JSON.parse(data)} : JSON.parse(data)
-        // return storePath ? {[storePath]: JSON.parse(data)} : JSON.parse(data)
     }
 } = {}) {
     return store => {
