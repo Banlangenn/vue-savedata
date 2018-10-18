@@ -27,8 +27,7 @@ const store = new Vuex.Store({
 ## API
 
 ### `createPersiste([options])`
-
-下列选项
+下列选项（默认保存store中的每个数据到本地  ）
 
 可以为您的特定需求配置插件：:
 
