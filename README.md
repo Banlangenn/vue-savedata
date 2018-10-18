@@ -1,5 +1,5 @@
 
-# vuex-persistedstate
+# vue-savedata
  自动保存 vuex 中数据
 ## Requirements
 
@@ -9,15 +9,15 @@
 ## Installation
 
 ```bash
-$ npm install vuex-savedata
-$ yarn add vuex-savedata
+$ npm install vue-savedata
+$ yarn add vue-savedata
 ```
 
 ## Usage
 
 
 ```js
-import createPersist from 'vuex-savedata'
+import createPersiste from 'vue-savedata'
 
 const store = new Vuex.Store({
   // ...
@@ -39,4 +39,4 @@ const store = new Vuex.Store({
 
 ## License
 
-[MIT](https://github.com/robinvdvleuten/vuex-persistedstate/blob/master/LICENSE) © [Robin van der Vleuten](https://www.robinvdvleuten.nl)
+[MIT](https://github.com/robinvdvleuten/vue-savedata/blob/master/LICENSE) © [Robin van der Vleuten](https://www.robinvdvleuten.nl)
