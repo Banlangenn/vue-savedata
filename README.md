@@ -1,3 +1,6 @@
+
+# vuex-persistedstate
+ 自动保存 vuex 中数据
 ## Requirements
 
 * [Vue.js](https://vuejs.org) (v2.0.0+)
