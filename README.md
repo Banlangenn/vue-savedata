@@ -46,7 +46,7 @@ import module2 from './modules/module2'
 const persiste = createPersiste({
 	LS: {
 		module: module1,
-		storePath: 'module1'
+		storePath: 'module100'
 	},
 	SS: {
 		module: module2,
@@ -56,7 +56,7 @@ const persiste = createPersiste({
 const store = new Vuex.Store({
   // ...
   modules: {
-   module1,
+   module100: module1,
    module2
 	 },
   plugins: [persiste],
