@@ -53,7 +53,6 @@ export default function createPersiste ({
         store.subscribe((mutation, state) => {
         // 每次 mutation 之后调用
         if (LS && LS.module['mutations'][mutation.type]) {
-            console.log(LS)
             setState(state[LS.storePath], 'localStorage')
             return
         }
