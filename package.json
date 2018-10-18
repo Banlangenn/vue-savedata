@@ -1,5 +1,5 @@
 {
-  "name": "vuex-savedata",
+  "name": "vue-savedata",
   "version": "1.0.1",
   "description": "vuex插件  自动保存vuex数据到浏览器本地",
   "main": "index.js",
