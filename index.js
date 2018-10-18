@@ -54,7 +54,7 @@ export default function createPersiste ({
         // 每次 mutation 之后调用
         if (LS && LS.module['mutations'][mutation.type]) {
             setState(state[LS.storePath], 'localStorage')
-            return
+            if(!SS) return
         }
         if (SS && SS.module['mutations'][mutation.type]) {
             setState(state[SS.storePath], 'sessionStorage')
