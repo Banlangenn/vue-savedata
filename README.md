@@ -10,6 +10,7 @@
 
 ```bash
 $ npm install vuex-savedata
+$ yarn add vuex-savedata
 ```
 
 ## Usage
