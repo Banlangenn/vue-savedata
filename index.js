@@ -28,7 +28,6 @@ export default function createPersiste ({
     getState = (path, Sg) => {
         const data = window[Sg].getItem(saveName) // 如果 没有key 会返回 null
         if (!data) return null
-        console.log(window[Sg])
         return path ? {[path]: JSON.parse(data)} : JSON.parse(data)
         // return storePath ? {[storePath]: JSON.parse(data)} : JSON.parse(data)
     }
