@@ -17,15 +17,16 @@ import createPersist from 'vuex-savedata'
 
 const store = new Vuex.Store({
   // ...
-  plugins: [createPersistedState()],
+  plugins: [createPersist()],
 })
 ```
 ## API
 
-### `createPersistedState([options])`
+### `createPersiste([options])`
 
-Creates a new instance of the plugin with the given options. The following options
-can be provided to configure the plugin for your specific needs:
+下列选项
+
+可以为您的特定需求配置插件：:
 
 * `saveName <String>`: 本地save的key  默认： savedata
 * `SS <Object>`: {storePath: xx, module: xx } storePath  在store 上的路径   module     需要 本地存的 模块
