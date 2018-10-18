@@ -39,8 +39,6 @@ const store = new Vuex.Store({
 
 （`温馨提示`: LS即Localstorage本地存储,    SS即sessionStorage本地存储,   LS、SS可同时使用也可单独使用 ）
 
-
-Usage
 ```js
 import createPersiste from 'vue-savedata'
 import module1 from './modules/module1'
