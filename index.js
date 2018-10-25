@@ -75,4 +75,5 @@ function checkoutParams(params) {
         console.warn(`module约定必须要有mutations、state`)
         return false
     }
+    return true
 }
