@@ -1,6 +1,6 @@
 
 # vue-savedata
- 自动保存 vuex 中数据
+ vuex 指定数据持久化
 ## Requirements
 
 * [Vue.js](https://vuejs.org) (v2.0.0+)
