@@ -1,6 +1,6 @@
 
 # vue-savedata
- vuex 指定数据持久化
+ vuex 指定数据持久化（配置最简，性能最佳）
 ## Requirements
 
 * [Vue.js](https://vuejs.org) (v2.0.0+)
