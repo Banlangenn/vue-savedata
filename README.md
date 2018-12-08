@@ -28,7 +28,7 @@ const store = new Vuex.Store({
 
 ### `createPersiste([options])`
 下列选项（默认保存store中的每个数据到本地  ）
-
+### （`温馨提示`: LS即Localstorage本地存储,    SS即sessionStorage本地存储,   LS、SS可同时使用,也可单独使用 ）
 可以为您的特定需求配置插件:
 
 * `saveName <String>`: 本地save的key  默认： savedata
@@ -37,7 +37,7 @@ const store = new Vuex.Store({
 * `getState <Function>`:  取本地时调用的方法  可自定义（SS,SL也会调用此方法）
 * `setState <Function>`:  存本地时调用的方法  同上
 
-（`温馨提示`: LS即Localstorage本地存储,    SS即sessionStorage本地存储,   LS、SS可同时使用,也可单独使用 ）
+
 
 ```js
 import createPersiste from 'vue-savedata'
