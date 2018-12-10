@@ -60,8 +60,7 @@ export default function createPersiste ({
             setState(state[SS.storePath], 'sessionStorage')
             return
         }
-        setState(state, 'localStorage')
-        // mutation 的格式为 { type, payload }
+        !LS && !SS && setState(state, 'localStorage')
         })
     }
 }
@@ -75,4 +74,5 @@ function checkoutParams(params) {
         console.warn(`module约定必须要有mutations、state`)
         return false
     }
+    return true
 }
