@@ -1,8 +1,8 @@
 /*
  * @Author:banlangen
  * @Date: 2018-08-12 01:05:13
- * @Last Modified by: xiaoliu
- * @Last Modified time: 2018-10-18 00:35:42
+ * @Last Modified by: banlangen
+ * @Last Modified time: 2018-12-11 09:47:27
  * @param {Object}
  * SS {storePath: xx, module: xx }
  * LS {storePath: xx, module: xx }
@@ -18,7 +18,7 @@
  * 可以可以 同时支持 sessionStorage localStorage
  * ssModule: {}
  */
-export default function createPersiste ({
+ function createPersiste ({
     SS = null,
     LS = null,
     saveName = 'saveData',
@@ -26,9 +26,14 @@ export default function createPersiste ({
         window[Sg].setItem(saveName, JSON.stringify(state))
     },
     getState = (path, Sg) => {
-        const data = window[Sg].getItem(saveName) // 如果 没有key 会返回 null
+        let data = null
+        try {
+            data = JSON.parse(window[Sg].getItem(saveName)) // 如果 没有key 会返回 null
+        } catch (error) {
+            return data
+        }
         if (!data) return null
-        return path ? {[path]: JSON.parse(data)} : JSON.parse(data)
+        return path ? {[path]: data} : data
     }
 } = {}) {
     return store => {
@@ -75,4 +80,9 @@ function checkoutParams(params) {
         return false
     }
     return true
+}
+
+
+module.exports = {
+    default: createPersiste
 }

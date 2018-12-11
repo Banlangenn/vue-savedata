@@ -2,7 +2,7 @@
 // import Vuex from 'vuex';
 const Vue = require('vue')
 const Vuex = require('Vuex')
-const createPersisted =  require('./index')
+const createPersisted =  require('./index').default
 
 Vue.config.productionTip = false;
 Vue.use(Vuex);
@@ -192,6 +192,27 @@ const module2 =  {
    
   it("在本地存不合法的数据 null", () => {
     window.localStorage.setItem('saveData', JSON.stringify(null));
+  
+    const store = new Vuex.Store({ modules: {
+      module1
+    } } );
+    store.replaceState = jest.fn();
+    store.subscribe = jest.fn();
+  
+    const plugin = createPersisted(
+      { LS:
+          {
+            module: module1,
+            storePath: "module1"
+        }
+      }
+    );
+    plugin(store);
+    expect(store.replaceState).not.toBeCalled();
+    expect(store.subscribe).toBeCalled();
+  })
+  it("在本地存JSON不能解析数据 <不合法>", () => {
+    window.localStorage.setItem('saveData', '<不合法>');
   
     const store = new Vuex.Store({ modules: {
       module1
