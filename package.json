@@ -1,8 +1,8 @@
 {
   "name": "vue-savedata",
   "version": "1.0.5",
-  "description": "vuex插件  保存数据到浏览器",
   "main": "./lib/vue-savedata.umd.js",
+  "description": "vuex插件 指定数据持久化（配置最简，性能最佳)",
   "scripts": {
     "test": "jest",
     "build": "rm -rf ./lib && webpack --config webpack.config.js"
