@@ -2,9 +2,10 @@
   "name": "vue-savedata",
   "version": "1.0.5",
   "description": "vuex插件  保存数据到浏览器",
-  "main": "index.js",
+  "main": "./lib/vue-savedata.umd.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "rm -rf ./lib && webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -19,8 +20,14 @@
   "author": "balangen",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "babel-loader": "^8.0.5",
     "jest": "^23.6.0",
     "vue": "^2.5.20",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "webpack": "^4.29.0",
+    "webpack-cli": "^3.2.1"
   }
 }

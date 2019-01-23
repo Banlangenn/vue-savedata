@@ -2,7 +2,7 @@
 // import Vuex from 'vuex';
 const Vue = require('vue')
 const Vuex = require('Vuex')
-const createPersisted =  require('./index').default
+const createPersisted =  require('./lib/vue-savedata.umd.js').default
 
 Vue.config.productionTip = false;
 Vue.use(Vuex);

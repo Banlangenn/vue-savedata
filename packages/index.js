@@ -2,7 +2,7 @@
  * @Author:banlangen
  * @Date: 2018-08-12 01:05:13
  * @Last Modified by: banlangen
- * @Last Modified time: 2018-12-11 09:47:27
+ * @Last Modified time: 2019-01-23 15:45:07
  * @param {Object}
  * SS {storePath: xx, module: xx }
  * LS {storePath: xx, module: xx }
@@ -36,6 +36,7 @@
         return path ? {[path]: data} : data
     }
 } = {}) {
+    console.log('==============================')
     return store => {
         let data = ''
         if (LS && checkoutParams(LS)) {
@@ -57,11 +58,11 @@
         // 当 store 初始化后调用
         store.subscribe((mutation, state) => {
         // 每次 mutation 之后调用
-        if (LS && LS.module['mutations'][mutation.type]) {
+        if (LS && Object.prototype.hasOwnProperty.call(LS.module.mutations, mutation.type)) {
             setState(state[LS.storePath], 'localStorage')
             if(!SS) return
         }
-        if (SS && SS.module['mutations'][mutation.type]) {
+        if (SS && Object.prototype.hasOwnProperty.call(SS.module.mutations, mutation.type)) {
             setState(state[SS.storePath], 'sessionStorage')
             return
         }
@@ -71,11 +72,11 @@
 }
 
 function checkoutParams(params) {
-    if (!(params.storePath && params.module)) {
+    if (!(params.hasOwnProperty('storePath') && params.hasOwnProperty('module'))) {
         console.warn(`SS,LS的key约定必须包含storePath、module`)
         return false
     }
-    if (!(params.module['state'] && params.module['mutations'])) {
+    if (!(params.module.hasOwnProperty('state') && params.module.hasOwnProperty('mutations'))) {
         console.warn(`module约定必须要有mutations、state`)
         return false
     }
@@ -83,6 +84,5 @@ function checkoutParams(params) {
 }
 
 
-module.exports = {
-    default: createPersiste
-}
+
+export default createPersiste
