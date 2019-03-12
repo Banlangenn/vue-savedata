@@ -2,7 +2,7 @@
  * @Author:banlangen
  * @Date: 2018-08-12 01:05:13
  * @Last Modified by: banlangen
- * @Last Modified time: 2019-01-23 15:45:07
+ * @Last Modified time: 2019-03-12 16:37:42
  * @param {Object}
  * SS {storePath: xx, module: xx }
  * LS {storePath: xx, module: xx }
@@ -36,7 +36,6 @@
         return path ? {[path]: data} : data
     }
 } = {}) {
-    console.log('==============================')
     return store => {
         let data = ''
         if (LS && checkoutParams(LS)) {
