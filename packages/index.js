@@ -2,7 +2,7 @@
  * @Author:banlangen
  * @Date: 2018-08-12 01:05:13
  * @Last Modified by: banlangen
- * @Last Modified time: 2019-03-12 18:23:15
+ * @Last Modified time: 2019-03-13 14:40:39
  * @param {Object}
  * SS {storePath: xx, module: xx }
  * LS {storePath: xx, module: xx }
@@ -18,13 +18,14 @@
  * 可以可以 同时支持 sessionStorage localStorage
  * ssModule: {}
  */
- function createPersiste ({
-    data = null,
+function createPersiste ({
+    SS = null,
+    LS = null,
     saveName = 'saveData',
     setState = (state, Sg) => {
         window[Sg].setItem(saveName, JSON.stringify(state))
     },
-    getState = (path, Sg) => {
+    getState = (Sg) => {
         let data = null
         try {
             data = JSON.parse(window[Sg].getItem(saveName)) // 如果 没有key 会返回 null
@@ -32,93 +33,103 @@
             return data
         }
         if (!data) return null
-        return path ? {[path]: data} : data
+        return data
+    },
+    checkParams = (params) => {
+        if (!(params.hasOwnProperty('storePath') && params.hasOwnProperty('module'))) {
+            console.warn(`SS,LS的key约定必须包含storePath、module`)
+            return false
+        }
+        if (!(params.module.hasOwnProperty('state') && params.module.hasOwnProperty('mutations'))) {
+            console.warn(`module约定必须要有mutations、state`)
+            return false
+        }
+        return true
     }
-} = {}) {
-    let _storage
-    if (data) {
-        _storage =  Array.isArray(data) ? data : [data]
-    }
-    // 初始化检查参数是否合法
-  
-   for (const item of _storage ) {
-       if (!checkoutParams(item)) {
-            _storage  = null
-            break
-       }
-   }
+} = {}){
+    // SS LS  可以支持数组
+    // 所以 存取都要数组 
     return store => {
-        let data = ''
-        // if (LS && checkoutParams(LS)) {
-        //     const localData = getState(LS.storePath, 'localStorage')
-        //     data = localData
-        // } else { LS = null }
-        // if (SS && checkoutParams(SS)) {
-        //     const sessionData = getState(SS.storePath, 'sessionStorage')
-        //     if (data) {
-        //         data = {...sessionData, ...data}
-        //     } else {
-        //         data = sessionData
-        //     }
-        // } else { SS = null }
-
-
-        if (!_storage) {
-            data = getState(null, 'localStorage')
-        } else {
-            data = _storage.reduce((prv,next) => {
-                const curr = getState(next.storePath, next.storage)
-                return curr ? { [next.storePath]: { ...prv,...curr } } : curr
-            },{})
-            // let isv = true, tepm = {}
-            // for (const module of storage ) {
-            //     if (checkoutParams(module)) {
-            //         tepm = {...tepm, ...getState(module.storePath, module.storage)}
-            //     } else {
-            //         isv = false
-            //         break
-            //     }
-            //     if (isv) data = tepm
-            // }
-            console.log('=================>============>')
-            console.log('=================>============>')
-            console.log('=================>============>')
-            console.log('=================>============>')
-            console.log(data)
+        let _SS = !SS || Array.isArray(SS) ? SS : [SS],
+        _LS = !LS || Array.isArray(LS) ? LS : [LS],data,
+        initSSData = null,
+        initLSData = null
+        if (_LS) {
+            // 一次就全部取出来了
+            for (const item of _LS) {
+                if(!checkParams(item)){
+                    _LS = null
+                    break;
+                }
+            }
+            if(_LS) {
+                initLSData =  data =  getState('localStorage')
+            }
+        }
+        if (_SS) {
+              // 一次就全部取出来了
+              for (const item of _SS) {
+                if(!checkParams(item)){
+                    _SS = null
+                    break;
+                }
+            }
+            // data 存在不能这样子取
+           
+            if (_SS) {
+                initSSData = getState('sessionStorage')
+                // LS 是否有
+                data = data ? {...data, ...initSSData} : initSSData 
+            }
+        }
+        if (!_LS && !_SS) {
+            data = getState('localStorage')
         }
         data && store.replaceState({...store.state, ...data})
         // 当 store 初始化后调用
         store.subscribe((mutation, state) => {
+            // 1. SS = null
+            // 2. LS = null
+            // 3. LS SS = null
+            // 4. LS SS != null
+
         // 每次 mutation 之后调用
-            if (!_storage) {
-                setState(state, 'localStorage')
-                return
-            }
-            for (const module of object) {
-                if (Object.prototype.hasOwnProperty.call(module.module.mutations, mutation.type)) {
-                    setState(state[module.storePath], module.storage)
+        if (_LS) {
+            let localData = null
+            for (const LSM of _LS) {
+                // 属于当前模块  改
+                // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+                // console.log(LSM)
+                if (Object.prototype.hasOwnProperty.call(LSM.module.mutations, mutation.type)) {
+                    localData = {...localData, [LSM.storePath]: state[LSM.storePath]}
                 }
             }
+            if (localData) {
+                initLSData = {...initLSData,...localData}
+                setState(initLSData, 'localStorage')
+            }
+            if(!_SS) return
+        }
+        if (_SS) {
+            let sessionData = null
+            for (const SSM of _SS) {
+                // 属于当前模块  改
+                if (Object.prototype.hasOwnProperty.call(SSM.module.mutations, mutation.type)) {
+                    sessionData = {...sessionData, [SSM.storePath]: state[SSM.storePath]}
+                }
+            }
+            // 要和以前的合并
+            if (sessionData) {
+                initSSData = {...initSSData,...sessionData}
+                setState(initSSData, 'sessionStorage')
+            }
+            return
+        }
+        !LS && !SS && setState(state, 'localStorage')
         })
     }
-}
+}   
 
-function checkoutParams(params) {
-    console.log(params)
-    if (!(params.hasOwnProperty('storePath') && params.hasOwnProperty('module'))) {
-        console.warn(`key约定必须包含storePath、module`)
-        return false
-    }
-    if (!(params.module.hasOwnProperty('state') && params.module.hasOwnProperty('mutations'))) {
-        console.warn(`module约定必须要有mutations、state`)
-        return false
-    }
-    if (!params.hasOwnProperty('storage') || params.storage !== 'localStorage' || params.storage !== 'sessionStorage') {
-        console.warn(`module约定必须要有storage， 值为localStorage或者sessionStorage`)
-        return false
-    }
-    return true
-}
 
 
 module.exports = createPersiste
