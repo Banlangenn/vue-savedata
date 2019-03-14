@@ -48,6 +48,7 @@ import createPersiste from 'vue-savedata'
 import module1 from './modules/module1'
 import module2 from './modules/module2'
 const persiste = createPersiste({
+	ciphertext: true, // 加密存本地, 默认为false
 	LS: {
 		module: module1,
 		storePath: 'module100'
