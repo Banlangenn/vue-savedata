@@ -11,7 +11,6 @@ Vue.use(Vuex);
 
 
 
-
 const module1 =  {
   
   state: {
@@ -96,6 +95,15 @@ const module3 =  {
 // });
 
 
+it("base64 解析是否正确", () => {
+  var encode = (data) => {
+    return window.btoa(encodeURIComponent(JSON.stringify(data)))
+  }
+  var decode = (data) => {
+      return  JSON.parse(decodeURIComponent(window.atob(data)))
+  }
+  expect(JSON.stringify(decode(encode({"name":"saveData"})))).toBe(JSON.stringify({"name":"saveData"}));
+});
 
 
 

@@ -1,8 +1,9 @@
+
 /*
  * @Author:banlangen
  * @Date: 2018-08-12 01:05:13
  * @Last Modified by: banlangen
- * @Last Modified time: 2019-03-13 14:40:39
+ * @Last Modified time: 2019-03-14 13:13:25
  * @param {Object}
  * SS {storePath: xx, module: xx }
  * LS {storePath: xx, module: xx }
@@ -22,18 +23,25 @@ function createPersiste ({
     SS = null,
     LS = null,
     saveName = 'saveData',
+    ciphertext = false,
+    encode = (data) => {
+        return window.btoa(encodeURIComponent(JSON.stringify(data)))
+    },
+    decode = (data) => {
+        return  JSON.parse(decodeURIComponent(window.atob(data)))
+    },
     setState = (state, Sg) => {
-        window[Sg].setItem(saveName, JSON.stringify(state))
+        state = ciphertext ? encode(state) : JSON.stringify(state)
+        window[Sg].setItem(saveName, state)
     },
     getState = (Sg) => {
-        let data = null
         try {
-            data = JSON.parse(window[Sg].getItem(saveName)) // 如果 没有key 会返回 null
+            let data = window[Sg].getItem(saveName) // 如果 没有key 会返回 null
+            if (!data) return null
+            return ciphertext ? decode(data) : JSON.parse(data)
         } catch (error) {
-            return data
+            return null
         }
-        if (!data) return null
-        return data
     },
     checkParams = (params) => {
         if (!(params.hasOwnProperty('storePath') && params.hasOwnProperty('module'))) {
@@ -79,7 +87,7 @@ function createPersiste ({
             if (_SS) {
                 initSSData = getState('sessionStorage')
                 // LS 是否有
-                data = data ? {...data, ...initSSData} : initSSData 
+                data = data ? {...data, ...initSSData} : initSSData
             }
         }
         if (!_LS && !_SS) {
@@ -92,7 +100,6 @@ function createPersiste ({
             // 2. LS = null
             // 3. LS SS = null
             // 4. LS SS != null
-
         // 每次 mutation 之后调用
         if (_LS) {
             let localData = null

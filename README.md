@@ -1,6 +1,9 @@
 
 # vue-savedata
  vuex 指定数据持久化（配置最简，性能最佳）
+ # 2.0.0 change
+* 添加 ciphertext密文支持
+* 添加 SS LS 支持数组 （相应 store中modules需要添加每一个）
 ## Requirements
 
 * [Vue.js](https://vuejs.org) (v2.0.0+)
@@ -30,10 +33,11 @@ const store = new Vuex.Store({
 下列选项（默认保存store中的每个数据到本地  ）
 ### （`温馨提示`: LS即Localstorage本地存储,    SS即sessionStorage本地存储,   LS、SS可同时使用,也可单独使用 ）
 可以为您的特定需求配置插件:
-
+(参数都是可选的：有默认值)
 * `saveName <String>`: 本地save的key  默认： savedata
-* `SS <Object>`: { storePath: xx, module: xx }   storePath:在store 上的路径   module:需要 本地存的 模块
-* `SL <Object>`: { storePath: xx, module: xx }  同上
+* `ciphertext <Boolean>`: 是不是密文存本地(base64) 默认 false
+* `SS <Object> || <Array>`: { storePath: xx, module: xx }   注：storePath:在store 上的路径   module:需要 本地存的 模块
+* `SL <Object> || <Array>`: { storePath: xx, module: xx }  同上, 支持多个模块，传入数组
 * `getState <Function>`:  取本地时调用的方法  可自定义（SS,SL也会调用此方法）
 * `setState <Function>`:  存本地时调用的方法  同上
 
@@ -53,6 +57,20 @@ const persiste = createPersiste({
 		storePath: 'module2'
 	}
 })
+/**
+ * 
+ * 数组 支持传入多个模块,相应 store中modules需要添加每一个
+ * const persiste = createPersiste({
+	LS:[{
+		module: module1,
+		storePath: 'module100'
+	}，....],
+	SS: [{
+		module: module2,
+		storePath: 'module2'
+	}，.....]
+})
+ * **/
 const store = new Vuex.Store({
   	// ...
 	modules: {
