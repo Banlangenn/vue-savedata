@@ -3,7 +3,7 @@
  vuex 指定数据持久化（配置最简，性能最佳）
  ## updata
 * 添加 ciphertext密文支持
-* 添加 SS LS 支持数组 （相应 store中modules需要添加每一个）
+* 添加 SS LS 支持数组 （每一个module要添加store中modules中）
 ## Requirements
 
 * [Vue.js](https://vuejs.org) (v2.0.0+)
@@ -60,7 +60,7 @@ const persiste = createPersiste({
 })
 /**
  * 
- * 数组 支持传入多个模块,相应 store中modules需要添加每一个
+ * 数组 支持传入多个模块,相应，每一个module要添加store中modules中
  * const persiste = createPersiste({
 	LS:[{
 		module: module1,
