@@ -36,7 +36,7 @@ const store = new Vuex.Store({
 (参数都是可选的：有默认值)
 * `saveName <String>`: 本地save的key  默认： savedata
 * `ciphertext <Boolean>`: 是不是密文存本地(base64) 默认 false
-* `SS <Object> || <Array>`: { storePath: xx, module: xx }   注：storePath:(和Vuex中的option.modules:{key：value}的key,一,一对应)
+* `SS <Object> || <Array>`: { storePath: xx, module: xx }   __注：storePath:(和Vuex中的option.modules:{key：value}的key,一,一对应)__
 * `SL <Object> || <Array>`: { storePath: xx, module: xx }  同上, 支持多个模块，传入数组
 
 
@@ -49,7 +49,7 @@ const persiste = createPersiste({
 	ciphertext: true, // 加密存本地, 默认为false
 	LS: {
 		module: module1,
-		storePath: 'module100' // storePath:(和Vuex中的option.modules:{key：value}的key,一,一对应)
+		storePath: 'module100' // __storePath:(和Vuex中的option.modules:{key：value}的key,一,一对应)__
 	},
 	SS: {
 		module: module2,
@@ -58,7 +58,7 @@ const persiste = createPersiste({
 })
 /**
  * 
- * 数组 支持传入多个模块,相应，和Vuex中的option.modules:{key：value}的key,一一对应
+ * 数组 支持传入多个模块,相应，__storePath:和Vuex中的option.modules:{key：value}的key,一一对应__
  * const persiste = createPersiste({
 	LS:[{
 		module: module1,
