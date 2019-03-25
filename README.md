@@ -51,24 +51,24 @@ const persiste = createPersiste({
 	ciphertext: true, // 加密存本地, 默认为false
 	LS: {
 		module: module1,
-		storePath: 'module100'
+		storePath: 'module100' // (和Vuex中的option.modules:{key：value}的key,一一对应)
 	},
 	SS: {
 		module: module2,
-		storePath: 'module2'
+		storePath: 'module2' 
 	}
 })
 /**
  * 
- * 数组 支持传入多个模块,相应，每一个module要添加store中modules中
+ * 数组 支持传入多个模块,相应，和Vuex中的option.modules:{key：value}的key,一一对应
  * const persiste = createPersiste({
 	LS:[{
 		module: module1,
-		storePath: 'module100'
+		storePath: 'module100' // (和Vuex中的option.modules:{key：value}的key,一一对应)
 	}，....],
 	SS: [{
 		module: module2,
-		storePath: 'module2'
+		storePath: 'module2' 
 	}，.....]
 })
  * **/
