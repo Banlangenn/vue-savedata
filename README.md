@@ -38,8 +38,6 @@ const store = new Vuex.Store({
 * `ciphertext <Boolean>`: 是不是密文存本地(base64) 默认 false
 * `SS <Object> || <Array>`: { storePath: xx, module: xx }   注：storePath:在store 上的路径   module:需要 本地存的 模块
 * `SL <Object> || <Array>`: { storePath: xx, module: xx }  同上, 支持多个模块，传入数组
-* `getState <Function>`:  取本地时调用的方法  可自定义（SS,SL也会调用此方法）
-* `setState <Function>`:  存本地时调用的方法  同上
 
 
 
