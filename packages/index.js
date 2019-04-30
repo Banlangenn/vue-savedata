@@ -3,7 +3,7 @@
  * @Author:banlangen
  * @Date: 2018-08-12 01:05:13
  * @Last Modified by: banlangen
- * @Last Modified time: 2019-04-24 10:30:47
+ * @Last Modified time: 2019-04-30 11:03:30
  * @param {Object}
  * SS {storePath: xx, module: xx }
  * LS {storePath: xx, module: xx }
@@ -23,6 +23,7 @@ function createPersiste ({
     SS = null,
     LS = null,
     saveName = 'saveData',
+    mode =  'LS',
     ciphertext = false,
     encode = (data) => {
         return window.btoa(encodeURIComponent(JSON.stringify(data)))
@@ -91,7 +92,8 @@ function createPersiste ({
             }
         }
         if (!_LS && !_SS) {
-            data = getState('localStorage')
+            // 'localStorage'
+            data = getState(`${mode !== 'SS' ? 'localStorage' : 'sessionStorage'}`)
         }
         data && store.replaceState({...store.state, ...data})
         // 当 store 初始化后调用
@@ -132,7 +134,7 @@ function createPersiste ({
             }
             return
         }
-        !LS && !SS && setState(state, 'localStorage')
+        !LS && !SS && setState(state, `${mode !== 'SS' ? 'localStorage' : 'sessionStorage'}`)
         })
     }
 }   
