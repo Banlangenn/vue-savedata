@@ -136,7 +136,9 @@ it("base64 解析是否正确", () => {
     const store = new Vuex.Store({ modules: {
       module1
     } } );
-    const plugin = createPersisted();
+    const plugin = createPersisted({
+      mode: 'LS'
+    });
     plugin(store);
     store._subscribers[0]({type: 'increment1'}, { module1:{count: 56789} });
     store._subscribers[0]({type: 'increment1'}, { module1:{count: 56789, age: 18} });
@@ -154,7 +156,9 @@ it("base64 解析是否正确", () => {
         count: 666666
       }
     }))
-    const plugin = createPersisted();
+    const plugin = createPersisted({
+      mode: 'LS'
+    });
     store.replaceState = jest.fn();
     store.subscribe = jest.fn();
     plugin(store);
