@@ -1,6 +1,6 @@
 
 # vue-savedata 
- vuex 指定数据持久化（配置最简，性能最佳）
+ vuex 指定数据持久化（配置简，性能佳，体积小）
  ## updata
 * 添加 ciphertext密文支持
 * 添加 SS LS 支持数组 （每一个module要添加store中modules中）
