@@ -81,6 +81,3 @@ const store = new Vuex.Store({
 })
 ```
 
-## License
-
-[MIT](https://github.com/robinvdvleuten/vue-savedata/blob/master/LICENSE) © [Robin van der Vleuten](https://www.robinvdvleuten.nl)
