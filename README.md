@@ -4,6 +4,7 @@
  ## updata
 * 添加 ciphertext密文支持
 * 添加 SS LS 支持数组 （每一个module要添加store中modules中）
+* 添加 默认储存位置配置
 ## Requirements
 
 * [Vue.js](https://vuejs.org) (v2.0.0+)
