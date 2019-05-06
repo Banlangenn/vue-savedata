@@ -64,11 +64,11 @@ const persiste = createPersiste({
 	LS:[{
 		module: module1,
 		storePath: 'module100' 
-	}，....],
+	}，...],
 	SS: [{
 		module: module2,
 		storePath: 'module2' 
-	}，.....]
+	}，...]
 })
  * **/
 const store = new Vuex.Store({
