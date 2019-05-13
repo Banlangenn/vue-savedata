@@ -3,7 +3,7 @@
  * @Author:banlangen
  * @Date: 2018-08-12 01:05:13
  * @Last Modified by: banlangen
- * @Last Modified time: 2019-04-30 11:03:30
+ * @Last Modified time: 2019-05-13 17:58:13
  * @param {Object}
  * SS {storePath: xx, module: xx }
  * LS {storePath: xx, module: xx }
@@ -55,36 +55,36 @@ function createPersiste ({
         }
         return true
     }
-} = {}){
+} = {}) {
     // SS LS  可以支持数组
-    // 所以 存取都要数组 
+    // 所以 存取都要数组
     return store => {
-        let _SS = !SS || Array.isArray(SS) ? SS : [SS],
-        _LS = !LS || Array.isArray(LS) ? LS : [LS],data,
-        initSSData = null,
-        initLSData = null
+        let _SS = !SS || Array.isArray(SS) ? SS : [SS]
+        let _LS = !LS || Array.isArray(LS) ? LS : [LS]
+        let data
+        let initSSData = null
+        let initLSData = null
         if (_LS) {
             // 一次就全部取出来了
             for (const item of _LS) {
-                if(!checkParams(item)){
+                if (!checkParams(item)) {
                     _LS = null
-                    break;
+                    break
                 }
             }
-            if(_LS) {
+            if (_LS) {
                 initLSData =  data =  getState('localStorage')
             }
         }
         if (_SS) {
               // 一次就全部取出来了
               for (const item of _SS) {
-                if(!checkParams(item)){
+                if (!checkParams(item)) {
                     _SS = null
-                    break;
+                    break
                 }
             }
             // data 存在不能这样子取
-           
             if (_SS) {
                 initSSData = getState('sessionStorage')
                 // LS 是否有
@@ -114,10 +114,10 @@ function createPersiste ({
                 }
             }
             if (localData) {
-                initLSData = {...initLSData,...localData}
+                initLSData = {...initLSData, ...localData}
                 setState(initLSData, 'localStorage')
             }
-            if(!_SS) return
+            if (!_SS) return
         }
         if (_SS) {
             let sessionData = null
@@ -129,7 +129,7 @@ function createPersiste ({
             }
             // 要和以前的合并
             if (sessionData) {
-                initSSData = {...initSSData,...sessionData}
+                initSSData = {...initSSData, ...sessionData}
                 setState(initSSData, 'sessionStorage')
             }
             return
@@ -137,9 +137,7 @@ function createPersiste ({
         !LS && !SS && setState(state, `${mode !== 'SS' ? 'localStorage' : 'sessionStorage'}`)
         })
     }
-}   
-
-
+}
 
 module.exports = createPersiste
 // export default createPersiste
