@@ -42,6 +42,7 @@ const module2 =  {
   }
 }
 
+//  数组情况 和 base解析
 const module3 =  {
   state: {
     count: 666
@@ -58,43 +59,6 @@ const module3 =  {
 
 
 
-// it("LS SS 取本地", () => {
-//   window.localStorage.setItem('saveData',  JSON.stringify({
-//     module1: {
-//       count: 333
-//     }
-//   }))
-//   window.localStorage.setItem('saveData',  JSON.stringify({
-//     module2: {
-//       count: 666
-//     }
-//   }))
-//   const store = new Vuex.Store({ modules: {
-//     module1, module2
-//   } } );
-//   store.replaceState = jest.fn();
-//   store.subscribe = jest.fn();
-//   const plugin = createPersisted(
-//     {
-//       LS: {
-//         module: module1,
-//         storePath: "module1"
-//       },
-//       SS: {
-//         module: module2,
-//         storePath: "module2"
-//       }
-// } 
-       
-//   );
-//   plugin(store);
-//   expect(store.replaceState).toBeCalledWith( { module1: { count: 333 },module2: {
-//     count: 666
-//   } });
-//   expect(store.subscribe).toBeCalled();
-// });
-
-
 it("base64 解析是否正确", () => {
   var encode = (data) => {
     return window.btoa(encodeURIComponent(JSON.stringify(data)))
@@ -107,30 +71,29 @@ it("base64 解析是否正确", () => {
 
 
 
-  it("初始化state和修改state存本地", () => {
-    window.localStorage.setItem('saveData',  JSON.stringify({
-      module1: {
-        count: 333
-      }
-    }))
-    const store = new Vuex.Store({ modules: {
-      module1
-    } } );
-    store.replaceState = jest.fn();
-    store.subscribe = jest.fn();
-    const plugin = createPersisted(
-      {
-        LS: {
-        module: module1,
-        storePath: "module1"
-      }
-  } 
-         
-    );
-    plugin(store);
-    expect(store.replaceState).toBeCalledWith( { module1: { count: 333 } });
-    expect(store.subscribe).toBeCalled();
-  });
+    it("初始化state和修改state存本地", () => {
+      window.localStorage.setItem('saveData',  JSON.stringify({
+        module1: {
+          count: 333
+        }
+      }))
+      const store = new Vuex.Store({ modules: {
+        module1
+      } } );
+      store.replaceState = jest.fn();
+      store.subscribe = jest.fn();
+      const plugin = createPersisted(
+        {
+          LS: {
+            module: module1,
+            storePath: "module1"
+          }
+        }   
+      );
+      plugin(store);
+      expect(store.replaceState).toBeCalledWith( { module1: { count: 333 } });
+      expect(store.subscribe).toBeCalled();
+    });
 
   it("默认存全部", () => {
     const store = new Vuex.Store({ modules: {
@@ -168,7 +131,7 @@ it("base64 解析是否正确", () => {
 
   it(' LS更改状态 保存到本地', () => {
     const store = new Vuex.Store({ modules: {
-      module1
+      module1,
     } } );
     const plugin = createPersisted(
       { LS:
@@ -186,9 +149,10 @@ it("base64 解析是否正确", () => {
       JSON.stringify({ module1:{count: 6666} })
     );
   });
+
   it(' SS更改状态 保存到本地', () => {
     const store = new Vuex.Store({ modules: {
-      module2
+      module2,
     } } );
     const plugin = createPersisted(
       { SS:
@@ -249,7 +213,7 @@ it("base64 解析是否正确", () => {
 
   
 
-  it('不合法的module,取存全部', () => {
+  it('SS效验不通过module,取存全部', () => {
     window.localStorage.setItem('saveData',  JSON.stringify({
       module1: {count: 123456789}
     }))
@@ -272,8 +236,31 @@ it("base64 解析是否正确", () => {
     expect(store.subscribe).toBeCalled();
   });
 
+  it('LS效验不通过module,取存全部', () => {
+    window.localStorage.setItem('saveData',  JSON.stringify({
+      module1: {count: 123456789}
+    }))
+    const store = new Vuex.Store({ modules: {
+      module1
+    } } );
 
+    store.replaceState = jest.fn();
+    store.subscribe = jest.fn();
+    const plugin = createPersisted(
+      { LS: {
+        module: module2,
+      }  
+    }
+    );
 
+    plugin(store);
+
+    expect(store.replaceState).toBeCalledWith( {module1: {count: 123456789}});
+    expect(store.subscribe).toBeCalled();
+  });
+
+// LS  不合法
+//  加密 解密
 
 
    
@@ -298,6 +285,8 @@ it("base64 解析是否正确", () => {
     expect(store.replaceState).not.toBeCalled();
     expect(store.subscribe).toBeCalled();
   })
+
+
   it("在本地存JSON不能解析数据 <不合法>", () => {
     window.localStorage.setItem('saveData', '<不合法>');
   
