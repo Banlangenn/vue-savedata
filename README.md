@@ -1,6 +1,7 @@
 
 # vue-savedata 
-[![Build Status](https://www.travis-ci.org/Banlangenn/vue-savedata.svg?branch=master)](https://www.travis-ci.org/Banlangenn/vue-savedata)
+[![Build Status](https://www.travis-ci.org/Banlangenn/vue-savedata.svg?branch=master)](https://www.travis-ci.org/Banlangenn/vue-savedata) 
+
  vuex 指定数据持久化（配置简，性能佳，体积小）
  ## updata
 * 添加 ciphertext密文支持
