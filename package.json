@@ -8,6 +8,10 @@
     "test:l": "jest",
     "build": "rm -rf ./lib && rollup -c"
   },
+  "jest": {
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Banlangenn/vue-savedata"
