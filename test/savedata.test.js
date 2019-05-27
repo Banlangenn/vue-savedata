@@ -1,7 +1,7 @@
 // import Vue from 'vue';
 // import Vuex from 'vuex';
 const Vue = require('vue')
-const Vuex = require('Vuex')
+const Vuex = require('vuex')
 const createPersisted =  require('./../lib/vue-savedata.umd')
 // const createPersisted =  require('./../packages/index')
 // import createPersiste from "./packages/index"
