@@ -2,8 +2,8 @@
 // import Vuex from 'vuex';
 const Vue = require('vue')
 const Vuex = require('Vuex')
-// const createPersisted =  require('./lib/vue-savedata.umd.js').default
-const createPersisted =  require('./packages/index')
+const createPersisted =  require('./../lib/vue-savedata.umd')
+// const createPersisted =  require('./../packages/index')
 // import createPersiste from "./packages/index"
 // console.log(createPersiste)
 Vue.config.productionTip = false;
@@ -19,7 +19,6 @@ const module1 =  {
   },
   mutations: {
     increment1(state) {
-      console.log('increment1increment1increment1')
       state.count++;
     },
     decrement1(state) {
