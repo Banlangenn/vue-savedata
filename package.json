@@ -31,5 +31,8 @@
     "vuex": "^3.0.1",
     "global": "^4.3.2",
     "rollup": "^1.6.0"
+  },
+  "devDependencies": {
+    "jest": "^24.8.0"
   }
 }
