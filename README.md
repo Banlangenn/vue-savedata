@@ -1,6 +1,6 @@
 
 # vue-savedata 
-[![Build Status](https://www.travis-ci.org/Banlangenn/vue-savedata.svg?branch=master)](https://www.travis-ci.org/Banlangenn/vue-savedata) 
+[![Build Status](https://www.travis-ci.org/Banlangenn/vue-savedata.svg?branch=master)](https://www.travis-ci.org/Banlangenn/vue-savedata) [![codecov](https://codecov.io/gh/Banlangenn/vue-savedata/branch/master/graph/badge.svg)](https://codecov.io/gh/Banlangenn/vue-savedata)
 
  vuex 指定数据持久化（配置简，性能佳，体积小）
  ## updata
