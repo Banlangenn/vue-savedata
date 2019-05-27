@@ -3,7 +3,7 @@
  * @Author:banlangen
  * @Date: 2018-08-12 01:05:13
  * @Last Modified by: banlangen
- * @Last Modified time: 2019-05-13 17:58:13
+ * @Last Modified time: 2019-05-22 15:53:26
  * @param {Object}
  * SS {storePath: xx, module: xx }
  * LS {storePath: xx, module: xx }
@@ -49,10 +49,10 @@ function createPersiste ({
             console.warn(`SS,LS的key约定必须包含storePath、module`)
             return false
         }
-        if (!(params.module.hasOwnProperty('state') && params.module.hasOwnProperty('mutations'))) {
-            console.warn(`module约定必须要有mutations、state`)
-            return false
-        }
+        // if (!(params.module.hasOwnProperty('state') && params.module.hasOwnProperty('mutations'))) {
+        //     console.warn(`module约定必须要有mutations、state`)
+        //     return false
+        // }
         return true
     }
 } = {}) {

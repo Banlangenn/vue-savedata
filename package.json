@@ -4,7 +4,8 @@
   "main": "./lib/vue-savedata.umd.js",
   "description": "vuex插件 指定数据持久化（配置简，性能佳，体积小)",
   "scripts": {
-    "test": "jest",
+    "test": "jest && codecov",
+    "test:l": "jest",
     "build": "rm -rf ./lib && rollup -c"
   },
   "repository": {
