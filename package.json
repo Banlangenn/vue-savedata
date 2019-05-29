@@ -36,12 +36,11 @@
     "rollup-plugin-terser": "^4.0.4",
     "rollup-plugin-uglify": "^6.0.2",
     "vue": "^2.5.20",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "pre-commit": "^1.2.2"
   },
   "pre-commit": [
-    "lint"
-  ],
-  "dependencies": {
-    "pre-commit": "^1.2.2"
-  }
+    "lint",
+    "test:l"
+  ]
 }
