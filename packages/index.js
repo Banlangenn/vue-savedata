@@ -1,9 +1,11 @@
+/*eslint no-undef: "error"*/
+/*eslint-env browser*/
 
 /*
  * @Author:banlangen
  * @Date: 2018-08-12 01:05:13
  * @Last Modified by: banlangen
- * @Last Modified time: 2019-05-22 15:53:26
+ * @Last Modified time: 2019-05-29 18:03:28
  * @param {Object}
  * SS {storePath: xx, module: xx }
  * LS {storePath: xx, module: xx }
@@ -77,8 +79,8 @@ function createPersiste ({
             }
         }
         if (_SS) {
-              // 一次就全部取出来了
-              for (const item of _SS) {
+            // 一次就全部取出来了
+            for (const item of _SS) {
                 if (!checkParams(item)) {
                     _SS = null
                     break
@@ -102,39 +104,39 @@ function createPersiste ({
             // 2. LS = null
             // 3. LS SS = null
             // 4. LS SS != null
-        // 每次 mutation 之后调用
-        if (_LS) {
-            let localData = null
-            for (const LSM of _LS) {
-                // 属于当前模块  改
-                // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-                // console.log(LSM)
-                if (Object.prototype.hasOwnProperty.call(LSM.module.mutations, mutation.type)) {
-                    localData = {...localData, [LSM.storePath]: state[LSM.storePath]}
+            // 每次 mutation 之后调用
+            if (_LS) {
+                let localData = null
+                for (const LSM of _LS) {
+                    // 属于当前模块  改
+                    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+                    // console.log(LSM)
+                    if (Object.prototype.hasOwnProperty.call(LSM.module.mutations, mutation.type)) {
+                        localData = {...localData, [LSM.storePath]: state[LSM.storePath]}
+                    }
                 }
-            }
-            if (localData) {
-                initLSData = {...initLSData, ...localData}
-                setState(initLSData, 'localStorage')
-            }
-            if (!_SS) return
-        }
-        if (_SS) {
-            let sessionData = null
-            for (const SSM of _SS) {
-                // 属于当前模块  改
-                if (Object.prototype.hasOwnProperty.call(SSM.module.mutations, mutation.type)) {
-                    sessionData = {...sessionData, [SSM.storePath]: state[SSM.storePath]}
+                if (localData) {
+                    initLSData = {...initLSData, ...localData}
+                    setState(initLSData, 'localStorage')
                 }
+                if (!_SS) return
             }
-            // 要和以前的合并
-            if (sessionData) {
-                initSSData = {...initSSData, ...sessionData}
-                setState(initSSData, 'sessionStorage')
+            if (_SS) {
+                let sessionData = null
+                for (const SSM of _SS) {
+                    // 属于当前模块  改
+                    if (Object.prototype.hasOwnProperty.call(SSM.module.mutations, mutation.type)) {
+                        sessionData = {...sessionData, [SSM.storePath]: state[SSM.storePath]}
+                    }
+                }
+                // 要和以前的合并
+                if (sessionData) {
+                    initSSData = {...initSSData, ...sessionData}
+                    setState(initSSData, 'sessionStorage')
+                }
+                return
             }
-            return
-        }
-        !LS && !SS && setState(state, `${mode !== 'SS' ? 'localStorage' : 'sessionStorage'}`)
+            !LS && !SS && setState(state, `${mode !== 'SS' ? 'localStorage' : 'sessionStorage'}`)
         })
     }
 }
