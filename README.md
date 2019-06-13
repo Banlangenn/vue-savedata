@@ -40,6 +40,7 @@ const store = new Vuex.Store({
 * `saveName <String>`: 本地save的key  默认： savedata
 * `ciphertext <Boolean>`: 是不是密文存本地(base64) 默认 false
 * `mode <String>`: 默认存储模式（LS,SS配置不存在时有效） 默认： LS
+* `MMD <Number>`: 模块 深度合并, 深度值  默认：2
 * `SS <Object> || <Array>`: { storePath: xx, module: xx }   __注：storePath:(和Vuex中的option.modules:{key：value}的key,一,一对应)__
 * `SL <Object> || <Array>`: { storePath: xx, module: xx }  同上, 支持多个模块，传入数组
 
