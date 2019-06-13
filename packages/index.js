@@ -5,7 +5,7 @@
  * @Author:banlangen
  * @Date: 2018-08-12 01:05:13
  * @Last Modified by: banlangen
- * @Last Modified time: 2019-05-29 18:03:28
+ * @Last Modified time: 2019-06-13 15:55:35
  * @param {Object}
  * SS {storePath: xx, module: xx }
  * LS {storePath: xx, module: xx }
@@ -26,6 +26,7 @@ function createPersiste ({
     LS = null,
     saveName = 'saveData',
     mode =  'LS',
+    MMD = 2, //  模块合并深度  => 
     ciphertext = false,
     encode = (data) => {
         return window.btoa(encodeURIComponent(JSON.stringify(data)))
@@ -56,6 +57,16 @@ function createPersiste ({
         //     return false
         // }
         return true
+    },
+    deepMerge = (origin, target, deep) => {
+        // target  覆盖  origin  // 
+        if (!deep) return target
+        for (let key in target) {
+            if (Object.prototype.hasOwnProperty.call(target, key)) {
+                origin[key] = origin[key] && Object.prototype.toString.call(origin[key]) === '[object Object]' ? deepMerge(origin[key], target[key], --deep) : origin[key] = target[key]
+            }
+        }
+        return origin
     }
 } = {}) {
     // SS LS  可以支持数组
@@ -90,14 +101,15 @@ function createPersiste ({
             if (_SS) {
                 initSSData = getState('sessionStorage')
                 // LS 是否有
-                data = data ? {...data, ...initSSData} : initSSData
+                // 合并数据
+                data = initLSData ? {...initLSData, ...initSSData} : initSSData
             }
         }
         if (!_LS && !_SS) {
             // 'localStorage'
             data = getState(`${mode !== 'SS' ? 'localStorage' : 'sessionStorage'}`)
         }
-        data && store.replaceState({...store.state, ...data})
+        data && store.replaceState(deepMerge(store.state, data, MMD + 1)) // {...store.state, ...data}
         // 当 store 初始化后调用
         store.subscribe((mutation, state) => {
             // 1. SS = null
@@ -109,13 +121,14 @@ function createPersiste ({
                 let localData = null
                 for (const LSM of _LS) {
                     // 属于当前模块  改
-                    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-                    // console.log(LSM)
                     if (Object.prototype.hasOwnProperty.call(LSM.module.mutations, mutation.type)) {
                         localData = {...localData, [LSM.storePath]: state[LSM.storePath]}
                     }
                 }
                 if (localData) {
+                    //  本身已经合并过了  为什么还要合并历史（initLSData）
+                    //  localData  拿到的是  当前模块的  value  =>  LS  是数组，可能会有多个 要合并其余的
+                    // 二级 value  肯定不一样 --Object  不允许重复key
                     initLSData = {...initLSData, ...localData}
                     setState(initLSData, 'localStorage')
                 }
