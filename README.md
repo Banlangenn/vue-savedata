@@ -23,7 +23,7 @@ $ yarn add vue-savedata
 
 
 ```js
-import createPersiste from 'vue-savedata'
+import createPersist from 'vue-savedata'
 // 默认全部持久化，你也可以通过一丢丢配置项,指定数据持久化
 const store = new Vuex.Store({
   // ...
