@@ -3,7 +3,7 @@
 [![Build Status](https://www.travis-ci.org/Banlangenn/vue-savedata.svg?branch=master)](https://www.travis-ci.org/Banlangenn/vue-savedata)  [![codecov](https://codecov.io/gh/Banlangenn/vue-savedata/branch/master/graph/badge.svg)](https://codecov.io/gh/Banlangenn/vue-savedata)
 
  vuex 指定数据持久化（配置简，性能佳，体积小） 
- ## updata
+ ## updata 2.x
 * 添加 ciphertext密文支持
 * 添加 SS LS 支持数组 （每一个module要添加store中modules中）
 * 添加 默认储存位置配置
