@@ -7,7 +7,7 @@
     "test": "jest && codecov",
     "test:l": "jest",
     "build": "rm -rf ./lib && rollup -c",
-    "lint": "eslint packages"
+    "lint": "eslint packages test"
   },
   "jest": {
     "coverageDirectory": "./coverage/",

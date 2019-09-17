@@ -12,5 +12,6 @@ module.exports = {
     rules: {
        "no-console": 0,
        "indent": ['error', 4], //缩进风格
-    }
+    },
+    parser : "babel-eslint"
   }

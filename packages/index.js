@@ -5,7 +5,7 @@
  * @Author:banlangen
  * @Date: 2018-08-12 01:05:13
  * @Last Modified by: banlangen
- * @Last Modified time: 2019-09-17 13:29:31
+ * @Last Modified time: 2019-09-17 13:51:15
  * @param {Object}
  * SS {storePath: xx, module: xx }
  * LS {storePath: xx, module: xx }
@@ -72,6 +72,7 @@ function createPersiste ({
     // 辅助函数 减少代码
     function typeHandle(namespaced, type, storePath) {
         if (namespaced) {
+            // eslint-disable-next-line no-useless-escape
             const reg = new RegExp(`^${storePath}\/`)
             return type.replace(reg,'')
         }
