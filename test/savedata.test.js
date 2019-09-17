@@ -1,11 +1,10 @@
 /*global it expect window jest*/
-/*eslint no-undef: "error"*/
-const Vue = require('vue')
-const Vuex = require('vuex')
-const createPersisted =  require('./../packages/index')
-// const createPersisted =  require('./../packages/index')
-// import createPersiste from "./packages/index"
-// console.log(createPersiste)
+/*eslint-disable*/
+
+import createPersisted from './../packages'
+import Vue from 'vue'
+import Vuex from 'Vuex'
+
 Vue.config.productionTip = false;
 Vue.use(Vuex);
 

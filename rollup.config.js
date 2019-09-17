@@ -6,6 +6,7 @@ import { terser } from 'rollup-plugin-terser'
 export default {    
   input: './packages/index.js',
   output: {
+    name: 'vue-savedata.umd',
     file: './lib/vue-savedata.umd.js',
     format: 'umd'
   },

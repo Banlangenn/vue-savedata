@@ -7,11 +7,12 @@
     "test": "jest && codecov",
     "test:l": "jest",
     "build": "rm -rf ./lib && rollup -c",
-    "lint": "eslint packages test"
+    "lint": "eslint packages"
   },
   "jest": {
     "coverageDirectory": "./coverage/",
-    "collectCoverage": true
+    "collectCoverage": true,
+    "transform": { "^.+\\.js?$": "babel-jest" }
   },
   "repository": {
     "type": "git",

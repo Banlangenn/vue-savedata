@@ -5,7 +5,7 @@
  * @Author:banlangen
  * @Date: 2018-08-12 01:05:13
  * @Last Modified by: banlangen
- * @Last Modified time: 2019-09-11 10:05:58
+ * @Last Modified time: 2019-09-17 13:29:31
  * @param {Object}
  * SS {storePath: xx, module: xx }
  * LS {storePath: xx, module: xx }
@@ -69,6 +69,27 @@ function createPersiste ({
         return origin
     }
 } = {}) {
+    // 辅助函数 减少代码
+    function typeHandle(namespaced, type, storePath) {
+        if (namespaced) {
+            const reg = new RegExp(`^${storePath}\/`)
+            return type.replace(reg,'')
+        }
+        return type
+    }
+    // 处理函数
+    function dataHandle(data, mutation, state) {
+        let result = null
+        for (const item of data) {
+            // 处理命名空间
+            const type = typeHandle(item.module.namespaced, mutation.type, item.storePath)
+            // 属于当前模块  改
+            if (Object.prototype.hasOwnProperty.call(item.module.mutations, type)) {
+                result = {...result, [item.storePath]: state[item.storePath]}
+            }
+        }
+        return result
+    }
     // SS LS  可以支持数组
     // 所以 存取都要数组
     return store => {
@@ -117,14 +138,10 @@ function createPersiste ({
             // 3. LS SS = null
             // 4. LS SS != null
             // 每次 mutation 之后调用
+            // 这两个可以合并为一个
             if (_LS) {
-                let localData = null
-                for (const LSM of _LS) {
-                    // 属于当前模块  改
-                    if (Object.prototype.hasOwnProperty.call(LSM.module.mutations, mutation.type)) {
-                        localData = {...localData, [LSM.storePath]: state[LSM.storePath]}
-                    }
-                }
+                let localData = dataHandle(_LS, mutation, state)
+                console.log(localData)
                 if (localData) {
                     //  本身已经合并过了  为什么还要合并历史（initLSData）
                     //  localData  拿到的是  当前模块的  value  =>  LS  是数组，可能会有多个 要合并其余的
@@ -134,14 +151,9 @@ function createPersiste ({
                 }
                 if (!_SS) return
             }
+            
             if (_SS) {
-                let sessionData = null
-                for (const SSM of _SS) {
-                    // 属于当前模块  改
-                    if (Object.prototype.hasOwnProperty.call(SSM.module.mutations, mutation.type)) {
-                        sessionData = {...sessionData, [SSM.storePath]: state[SSM.storePath]}
-                    }
-                }
+                let sessionData = dataHandle(_SS, mutation, state)
                 // 要和以前的合并
                 if (sessionData) {
                     initSSData = {...initSSData, ...sessionData}
@@ -154,5 +166,5 @@ function createPersiste ({
     }
 }
 
-module.exports = createPersiste
-// export default createPersiste
+export default createPersiste
+// module.exports = createPersiste
