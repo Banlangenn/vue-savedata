@@ -3,7 +3,7 @@
 
 import createPersisted from './../packages'
 import Vue from 'vue'
-import Vuex from 'Vuex'
+import Vuex from 'vuex'
 
 Vue.config.productionTip = false;
 Vue.use(Vuex);
