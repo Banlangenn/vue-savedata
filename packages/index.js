@@ -5,7 +5,7 @@
  * @Author:banlangen
  * @Date: 2018-08-12 01:05:13
  * @Last Modified by: banlangen
- * @Last Modified time: 2019-09-17 13:51:15
+ * @Last Modified time: 2019-09-18 10:19:37
  * @param {Object}
  * SS {storePath: xx, module: xx }
  * LS {storePath: xx, module: xx }
@@ -142,7 +142,6 @@ function createPersiste ({
             // 这两个可以合并为一个
             if (_LS) {
                 let localData = dataHandle(_LS, mutation, state)
-                console.log(localData)
                 if (localData) {
                     //  本身已经合并过了  为什么还要合并历史（initLSData）
                     //  localData  拿到的是  当前模块的  value  =>  LS  是数组，可能会有多个 要合并其余的
