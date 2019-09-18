@@ -26,6 +26,21 @@ const module1 =  {
         }
     }
 }
+const module4 =  {
+    namespaced: true,
+    state: {
+        count100: 100,
+        count200: 200
+    },
+    mutations: {
+        increment1(state) {
+            state.count100++;
+        },
+        decrement1(state) {
+            state.count100--;
+        }
+    }
+}
 
 const module2 =  {
     state: {
@@ -223,6 +238,27 @@ it(' LS更改状态 保存到本地', () => {
         JSON.stringify({ module1:{count: 6666} })
     );
 });
+it(' LS更改状态 保存到本地开启namespaced', () => {
+    clear()
+    const store = new Vuex.Store({ modules: {
+        module4,
+    } } );
+    const plugin = createPersisted(
+        { LS:
+          {
+              module: module4,
+              storePath: "module4"
+          }
+        }
+    );
+  
+    plugin(store);
+    store._subscribers[0]({type: 'module4/increment1'}, { module1:{count: 6666} });
+    expect(window.localStorage.getItem('saveData')).toBe(
+        JSON.stringify({ module1:{count: 6666} })
+    );
+});
+
 
 it(' SS更改状态 保存到本地', () => {
     clear()
