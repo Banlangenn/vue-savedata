@@ -1,6 +1,6 @@
 {
   "name": "vue-savedata",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "main": "./lib/vue-savedata.umd.js",
   "description": "vuex插件 指定数据持久化（配置简，性能佳，体积小)",
   "scripts": {
