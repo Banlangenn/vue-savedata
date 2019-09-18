@@ -251,9 +251,12 @@ it(' LS更改状态 保存到本地开启namespaced', () => {
           }
         }
     );
-  
+    // {
+    //     count100: 100,
+    //     count200: 200
+    // }
     plugin(store);
-    store._subscribers[0]({type: 'module4/increment1'}, { module1:{count: 6666} });
+    store._subscribers[0]({type: 'module4/increment1'}, { module4:{count: 6666} });
     expect(window.localStorage.getItem('saveData')).toBe(
         JSON.stringify({ module4:{count: 6666} })
     );
