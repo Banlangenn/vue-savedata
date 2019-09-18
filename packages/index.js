@@ -5,7 +5,7 @@
  * @Author:banlangen
  * @Date: 2018-08-12 01:05:13
  * @Last Modified by: banlangen
- * @Last Modified time: 2019-09-18 10:19:37
+ * @Last Modified time: 2019-09-18 11:21:07
  * @param {Object}
  * SS {storePath: xx, module: xx }
  * LS {storePath: xx, module: xx }
@@ -70,11 +70,10 @@ function createPersiste ({
     }
 } = {}) {
     // 辅助函数 减少代码
-    function typeHandle(namespaced, type, storePath) {
+    function typeHandle(namespaced, type) {
         if (namespaced) {
-            // eslint-disable-next-line no-useless-escape
-            const reg = new RegExp(`^${storePath}\/`)
-            return type.replace(reg,'')
+            const arr = type.split('/')
+            return arr[arr.length]
         }
         return type
     }
@@ -83,7 +82,7 @@ function createPersiste ({
         let result = null
         for (const item of data) {
             // 处理命名空间
-            const type = typeHandle(item.module.namespaced, mutation.type, item.storePath)
+            const type = typeHandle(item.module.namespaced, mutation.type)
             // 属于当前模块  改
             if (Object.prototype.hasOwnProperty.call(item.module.mutations, type)) {
                 result = {...result, [item.storePath]: state[item.storePath]}
