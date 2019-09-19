@@ -74,7 +74,7 @@ const persiste = createPersiste({
 		storePath: 'module2' 
 	}，...]
 })
- * **/
+ ***/
 const store = new Vuex.Store({
   	// ...
 	modules: {
