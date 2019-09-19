@@ -5,7 +5,7 @@
  * @Author:banlangen
  * @Date: 2018-08-12 01:05:13
  * @Last Modified by: banlangen
- * @Last Modified time: 2019-09-18 11:21:07
+ * @Last Modified time: 2019-09-19 09:04:18
  * @param {Object}
  * SS {storePath: xx, module: xx }
  * LS {storePath: xx, module: xx }
@@ -73,7 +73,7 @@ function createPersiste ({
     function typeHandle(namespaced, type) {
         if (namespaced) {
             const arr = type.split('/')
-            return arr[arr.length]
+            return arr[arr.length - 1]
         }
         return type
     }
