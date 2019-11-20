@@ -19,8 +19,8 @@ export default {
     },
     methods: {
         setnickname() {
-            this.$store.dispatch('user/setactnickname', '昵称12123');
-            this.$store.dispatch('setactnickname', 'product昵称12123')
+            this.$store.dispatch('user/setactnickname', '昵称: 秦始皇');
+            this.$store.dispatch('setactnickname', 'productId: 121d4sd414sd4s4d4sd4s4dfffgasa')
         }
     }
 };
