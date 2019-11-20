@@ -5,7 +5,7 @@
  * @Author:banlangen
  * @Date: 2018-08-12 01:05:13
  * @Last Modified by: banlangen
- * @Last Modified time: 2019-09-19 09:04:18
+ * @Last Modified time: 2019-11-20 09:51:20
  * @param {Object}
  * SS {storePath: xx, module: xx }
  * LS {storePath: xx, module: xx }
@@ -80,12 +80,19 @@ function createPersiste ({
     // 处理函数
     function dataHandle(data, mutation, state) {
         let result = null
+        // data  组件传入的模块
         for (const item of data) {
             // 处理命名空间
             const type = typeHandle(item.module.namespaced, mutation.type)
             // 属于当前模块  改
-            if (Object.prototype.hasOwnProperty.call(item.module.mutations, type)) {
+            //  2019.11.20  新加-- 屏蔽掉不合法的 module
+            const mutations = item.module.mutations 
+            if (!mutations) continue
+            //  2019.11.20  新加-- 屏蔽掉不合法的 module
+            
+            if (Object.prototype.hasOwnProperty.call(mutations, type)) {
                 result = {...result, [item.storePath]: state[item.storePath]}
+                //  不能break  不同模块 可能有同名的mutation， 需要触发储存
             }
         }
         return result

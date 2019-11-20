@@ -431,3 +431,52 @@ it("在本地存JSON不能解析数据 <不合法>", () => {
     expect(store.subscribe).toBeCalled();
 })
 
+
+it('传入模块不合法', () => {
+    clear()
+    const store = new Vuex.Store({ modules: {
+            a: 123
+        },
+        state: {
+            default: 'vue-savedata'
+        }
+    });
+    const plugin = createPersisted(
+        { LS:
+          {
+              module: module4,
+              storePath: "module4"
+          }
+        }
+    );
+
+    plugin(store);
+    store.commit('module4/increment1')
+    expect(window.localStorage.getItem('saveData')).toBe(null);
+});
+
+it('传入模块正常', () => {
+    clear()
+    const store = new Vuex.Store({ modules: {
+            module4
+        },
+        state: {
+            default: 'vue-savedata'
+        }
+    });
+    const plugin = createPersisted(
+        { LS:
+          {
+              module: module4,
+              storePath: "module4"
+          }
+        }
+    );
+
+    plugin(store);
+    store.commit('module4/increment1')
+    // 上面这是在干嘛
+    expect(window.localStorage.getItem('saveData')).toBe(
+        JSON.stringify({ module4:{count100: 101, count200: 200} })
+    );
+});
