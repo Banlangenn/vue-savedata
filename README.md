@@ -2,7 +2,7 @@
 # vue-savedata 
 [![Build Status](https://www.travis-ci.org/Banlangenn/vue-savedata.svg?branch=master)](https://www.travis-ci.org/Banlangenn/vue-savedata)  [![codecov](https://codecov.io/gh/Banlangenn/vue-savedata/branch/master/graph/badge.svg)](https://codecov.io/gh/Banlangenn/vue-savedata)
 
- vuex 指定【模块】的state持久化（配置简，性能佳，体积小） 
+ vuex 指定【模块】的state持久化（配置简，性能佳，体积小（2.53k）,） 
  ## updata 2.x
 * 添加 ciphertext密文支持
 * 添加 SS LS 支持数组 （每一个module要添加store中modules中）
