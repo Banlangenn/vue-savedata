@@ -1,8 +1,7 @@
 /* eslint-disable */
 import Vue from 'vue';
 import Vuex from 'vuex';
-import createPersisted from './../../../../packages';
-// const createPersisted = require('./../../../../packages')
+import createPersisted from './../../../../lib/vue-savedata.umd';
 import user from './modules/user/store';
 import product from './modules/product/store';
 const persisted = createPersisted({
