@@ -3,7 +3,8 @@
 [![Build Status](https://www.travis-ci.org/Banlangenn/vue-savedata.svg?branch=master)](https://www.travis-ci.org/Banlangenn/vue-savedata)  [![codecov](https://codecov.io/gh/Banlangenn/vue-savedata/branch/master/graph/badge.svg)](https://codecov.io/gh/Banlangenn/vue-savedata)
 
  vuex 指定【模块】的state持久化（配置简，性能佳，体积小: gzip压缩之后 1238字节 ≈ 1.2kb） 
- ## updata 2.x
+ ## updata 2.0.6
+ * 修复ie9 ie10 报错问题
 * 添加 ciphertext密文支持
 * 添加 SS LS 支持数组 （每一个module要添加store中modules中）
 * 添加 默认储存位置配置
